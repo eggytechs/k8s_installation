@@ -1,0 +1,14 @@
+# https://kubernetes.io/docs/reference/kubectl/cheatsheet/
+source <(kubectl completion bash)
+alias k=kubectl
+# complete -F __start_kubectl k 
+complete -o default -F __start_kubectl k
+
+alias k8snet="kubectl run --rm -it curlpod --image=radial/busyboxplus:curl"
+do="--dry-run=client -o yaml"     # k get pod x $do
+now="--force --grace-period 0"    # k delete pod x $now
+
+
+# Mapping docker to crictl:  https://kubernetes.io/docs/reference/tools/map-crictl-dockercli/
+# Starting from v1.24.0, dockershim is removed
+alias crictl="sudo crictl"
