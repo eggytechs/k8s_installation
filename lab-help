@@ -1,6 +1,6 @@
 #!/bin/bash
 
-___generate_file(){
+___generate_setup_script(){
 cat << EOF1 | ssh $1 "cat > /home/student/k8s-install.sh"
 
 __MINOR_VER=1.28
@@ -67,8 +67,40 @@ fi
 
 EOF1
 
+echo -e "Generate script in [ $1 ] - /home/student/k8s-install.sh"
 }
 
-___generate_file k8s-cp
-___generate_file k8s-worker-1
-___generate_file k8s-worker-2
+___generate_init_config(){
+
+cat << EOF | ssh $1 "cat > /home/student/kubeadm-config.yaml"
+apiVersion: kubeadm.k8s.io/v1beta3
+kind: ClusterConfiguration
+kubernetesVersion: 1.28.3 
+controlPlaneEndpoint: "k8s-cp:6443" 
+networking:
+    podSubnet: 192.168.0.0/16
+EOF
+echo -e "Generate script in [ $1 ] - /home/student/kubeadm-config.yaml"
+}
+
+__TASK_LIST="task1 task2 task3"
+__TASK_HELP="Usage: - lab-help <task1 | task2 | task3>"
+if [[ $# -eq 0 ]] ; then
+      echo "$__TASK_HELP"
+      exit 1
+elif [[ "$__TASK_LIST" =~ (^|[[:space:]])"$1"($|[[:space:]]) ]]; then
+      if [[ $1 == "task1" ]]; then
+        ___generate_file k8s-cp
+      elif [[ $1 == "task2" ]]; then
+        ___generate_file k8s-worker-1
+        ___generate_file k8s-worker-2
+      elif [[ $1 == "task3" ]]; then
+        ___generate_init_config k8s-cp
+      else
+        echo "$__TASK_HELP"
+        exit 1
+      fi 
+else
+    echo "$__TASK_HELP"
+    exit 1
+fi
