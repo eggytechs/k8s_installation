@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ___generate_file(){
-sudo cat << EOF1 > /home/student/k8s-install.sh
+ssh $1 sudo cat << EOF1 > /home/student/k8s-install.sh
 
 __MINOR_VER=1.28
 __VER=1.28.3
@@ -69,6 +69,6 @@ EOF1
 
 }
 
-ssh k8s-cp ___generate_file
-ssh k8s-worker-1 ___generate_file
-ssh k8s-worker-2 ___generate_file
+___generate_file k8s-cp
+___generate_file k8s-worker-1
+___generate_file k8s-worker-2
