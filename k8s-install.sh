@@ -39,8 +39,8 @@ EOF
   systemctl restart containerd
 
   # Step 9 - Add repo for Kubernetes
-  curl -fsSL https://pkgs.k8s.io/core:/stable:/v\$__MINOR_VER/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
-  echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v\$__MINOR_VER/deb/ /" >>/etc/apt/sources.list.d/kubernetes.list
+  curl -fsSL https://pkgs.k8s.io/core:/stable:/v$__MINOR_VER/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+  echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v$__MINOR_VER/deb/ /" >>/etc/apt/sources.list.d/kubernetes.list
 
   # Step 10 - Install the Kubernetes software, and lock the version
   apt-get update
@@ -50,7 +50,7 @@ EOF
 
 #! Check whether k8s is installed or not
 if [ ! -d /etc/kubernetes/ ]; then
-    if [[ \$(whoami) != "root" ]]; then
+    if [[ $(whoami) != "root" ]]; then
         echo "Please run as root"
         exit 1
     else
