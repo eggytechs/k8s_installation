@@ -1,4 +1,4 @@
-
+#!/bin/bash
 __MINOR_VER=1.28
 __VER=1.28.3
 __MY_K8S_SETUP_DIR="/opt/k8s-setup"
