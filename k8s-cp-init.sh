@@ -77,9 +77,9 @@ sudo kubeadm init  --cri-socket /run/containerd/containerd.sock --pod-network-ci
 #?-----------------------------
 #? Setup .kube/config file
 #?-----------------------------
-mkdir -p $HOME/.kube
-sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-sudo chown $(id -u):$(id -g) $HOME/.kube/config
+#mkdir -p $HOME/.kube
+#sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+#sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
 #?-----------------------------
 #? Install CNI & Untaint node
@@ -91,8 +91,8 @@ kubectl taint node $(hostname) node-role.kubernetes.io/control-plane:NoSchedule-
 #?--------------------------------
 #? Setup kubectl autocompletion
 #?--------------------------------
-echo "source <(kubectl completion bash)" >> ~/.bashrc
-echo "alias k=kubectl" >> ~/.bashrc
-echo "complete -o default -F __start_kubectl k" >> ~/.bashrc
-source <(kubectl completion bash)
+#echo "source <(kubectl completion bash)" >> ~/.bashrc
+#echo "alias k=kubectl" >> ~/.bashrc
+#echo "complete -o default -F __start_kubectl k" >> ~/.bashrc
+#source <(kubectl completion bash)
 
