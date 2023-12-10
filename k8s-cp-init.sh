@@ -92,4 +92,7 @@ kubectl taint node $(hostname) node-role.kubernetes.io/control-plane:NoSchedule-
 #? Setup kubectl autocompletion
 #?--------------------------------
 echo "source <(kubectl completion bash)" >> ~/.bashrc
+echo "alias k=kubectl" >> ~/.bashrc
+echo "complete -o default -F __start_kubectl k" >> ~/.bashrc
 source <(kubectl completion bash)
+
