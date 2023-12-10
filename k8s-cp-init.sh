@@ -74,20 +74,20 @@ sleep 3
 #?-----------------------------
 sudo kubeadm init  --cri-socket /run/containerd/containerd.sock --pod-network-cidr=192.168.0.0/16 --control-plane-endpoint k8s-cp --upload-certs -v=5 | tee ~/kadm-init.out
 
+#?-----------------------------
+#? Setup .kube/config file
+#?-----------------------------
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
+whoami >> /tmp/myuser
 #?-----------------------------
 #? Install CNI & Untaint node
 #?-----------------------------
 kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/master/manifests/calico.yaml
 kubectl taint node $(hostname) node-role.kubernetes.io/master:NoSchedule-
 kubectl taint node $(hostname) node-role.kubernetes.io/control-plane:NoSchedule-
-
-#?-----------------------------
-#? Setup .kube/config file
-#?-----------------------------
-#mkdir -p $HOME/.kube
-#sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-#sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
 #?--------------------------------
 #? Setup kubectl autocompletion
